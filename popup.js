@@ -1,6 +1,13 @@
-document.getElementById('scrapeLabels').addEventListener('click', function() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { action: "getLabels" }, function(response) {
+document.getElementById('scrapeLabels').addEventListener('click', function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { action: "getIndividual" }, function (response) {
+            if (response && response.labels) {
+                const sortedLabels = response.labels;
+                displaySortedGrades(sortedLabels);
+            }
+        });
+
+        chrome.tabs.sendMessage(tabs[0].id, { action: "getLabels" }, function (response) {
             if (response && response.labels) {
                 const labels = response.labels;
                 const names = [];
@@ -32,6 +39,58 @@ document.getElementById('scrapeLabels').addEventListener('click', function() {
         });
     });
 });
+
+function displaySortedGrades(sortedLabels) {
+    const sortedGradesDiv = document.getElementById('sortedGrades');
+    sortedGradesDiv.innerHTML = '';
+
+    const list = document.createElement('ul');
+
+    sortedLabels.forEach(label => {
+        if (
+            typeof label === 'object' &&
+            label !== null &&
+            label.name === null &&
+            (!label.values || label.values.length === 0) &&
+            label.grade === null
+        ) {
+            return;
+        }
+
+        const listItem = document.createElement('li');
+        
+        if (typeof label === 'object' && label !== null) {
+            const name = label.name;
+            const values = label.values[1];
+            const grade = label.grade;
+
+            listItem.innerHTML = validateObject(name, values, grade);
+        } else {
+            listItem.textContent = label;
+        }
+
+        list.appendChild(listItem);
+    });
+
+    sortedGradesDiv.appendChild(list);
+}
+
+function validateObject(name, values, grade) {
+    //TODO: empty grade assuming cannot get a 0 mark. Add check for 0 mark.
+    const regex = /^0\s*\/\s*\d+(\.\d+)?$/; 
+    if(regex.test(values)) { 
+        return `
+                <strong>Name:</strong> ${name} <br>
+                <strong>Pending Grade with weight of ${values}%</strong>
+            `;
+    }
+    return `
+                <strong>Name:</strong> ${name} <br>
+                <strong>Values:</strong> ${values} <br>
+                <strong>Grade:</strong> ${grade}
+            `;
+}
+
 
 function displayLabels(names, values, finalGrade) {
     const labelsContainer = document.getElementById('labelsContainer');
@@ -82,15 +141,15 @@ function updateFinalGrade(finalGrade) {
 }
 
 function calculateLetterGrade(grade) {
-    if (grade >= 0.90) return 'A+';
-    if (grade >= 0.85) return 'A';
-    if (grade >= 0.80) return 'A-';
-    if (grade >= 0.75) return 'B+';
-    if (grade >= 0.70) return 'B';
-    if (grade >= 0.65) return 'C+';
-    if (grade >= 0.60) return 'C';
-    if (grade >= 0.55) return 'D+';
-    if (grade >= 0.50) return 'D';
+    if (grade >= 0.895) return 'A+';
+    if (grade >= 0.845) return 'A';
+    if (grade >= 0.795) return 'A-';
+    if (grade >= 0.746) return 'B+';
+    if (grade >= 0.696) return 'B';
+    if (grade >= 0.646) return 'C+';
+    if (grade >= 0.596) return 'C';
+    if (grade >= 0.546) return 'D+';
+    if (grade >= 0.496) return 'D';
     if (grade >= 0.40) return 'E';
     return 'F';
 }

@@ -1,0 +1,57 @@
+.popup {
+    width: 384px;
+    height: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  #scrapeLabels {
+    width: 100%;
+    padding: 12px;
+    background-color: #050505;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+
+  #scrapeLabels:hover {
+    background-color: #252525;
+  }
+
+  #results {
+    max-height: 280px;
+    overflow-y: auto;
+    background-color: #f9fafb;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    font-size: 1.2rem;
+  }
+
+  #finalGrade {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  #letterGrade {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    color: #000;
+  }
