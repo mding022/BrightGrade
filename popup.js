@@ -82,15 +82,24 @@ function displaySortedGrades(sortedLabels) {
 
 function validateObject(name, values, grade) {
     //TODO: empty grade assuming cannot get a 0 mark. Add check for 0 mark.
-    const regex = /^0\s*\/\s*\d+(\.\d+)?$/;
-    if (regex.test(values)) {
+    const checkZero = /^0\s*\/\s*\d+(\.\d+)?$/;
+    const checkDash = /^-\s*\/\s*\d+(\.\d+)?$/;
+    if (checkZero.test(values)) {
         const weight = values.replace(/^0\s*\/\s*/, "");
         pendingWeight += parseFloat(weight);
         return `
                 <strong>Name:</strong> ${name} <br>
                 <strong>Pending Grade with weight of ${weight}%</strong>
             `;
-    } else {
+    } else if (checkDash.test(values)) {
+        const weight = values.replace(/^-\s*\/\s*/, "");
+        pendingWeight += parseFloat(weight);
+        return `
+                <strong>Name:</strong> ${name} <br>
+                <strong>Pending Grade with weight of ${weight}%</strong>
+            `;
+    }
+    else {
         const match = values.match(/^(\d+\.?\d*)\s*\/\s*(\d+\.?\d*)$/);
         if (match) {
             const numerator = parseFloat(match[1]);
@@ -139,7 +148,7 @@ function displayLabels(names, values, finalGrade) {
     }
 
     labelsContainer.appendChild(table);
-    const bestGrade = (achieved+pendingWeight)/(weight+pendingWeight);
+    const bestGrade = (achieved + pendingWeight) / (weight + pendingWeight);
     console.log("best grade: " + bestGrade + " achieved: " + achieved + " weight: " + weight + " pending : " + pendingWeight)
     updateFinalGrade(finalGrade, bestGrade);
 }
