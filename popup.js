@@ -155,7 +155,7 @@ function displayLabels(names, values, finalGrade) {
 
 function updateFinalGrade(finalGrade, bestGrade) {
     const finalGradeElement = document.getElementById('finalGrade');
-    finalGradeElement.textContent = `Final Grade: ${(finalGrade * 100).toFixed(1)}%`;
+    finalGradeElement.textContent = `Current Grade: ${(finalGrade * 100).toFixed(1)}%`;
 
     const letterGrade = calculateLetterGrade(finalGrade);
     const letterColor = getLetterColor(letterGrade);
