@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "Grades Projection",
+    "version": "1.0",
+    "description": "Scrapes data from Brightspace and compiles it.",
+    "permissions": [
+      "activeTab",
+      "scripting"
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon.jfif"
+      }
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ]
+  }
+  

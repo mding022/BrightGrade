@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GradesProjection</title>
+  <style>
+    .popup {
+      width: 384px;
+      height: 480px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    #scrapeLabels {
+      width: 100%;
+      padding: 12px;
+      background-color: #050505;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+    #scrapeLabels:hover {
+      background-color: #252525;
+    }
+    #results {
+      max-height: 280px;
+      overflow-y: auto;
+      background-color: #f9fafb;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      font-size: 0.9rem;
+    }
+    #finalGrade {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+    #letterGrade {
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup">
+    <h1>Web Scraper</h1>
+    <button id="scrapeLabels">Scrape Labels</button>
+    <div id="labelsContainer"></div>
+    <div id="finalGrade">
+        Final Grade: 0%
+    </div>
+    <div id="letterGrade"></div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
