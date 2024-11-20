@@ -10,14 +10,21 @@
 
 <body>
   <div class="popup">
-    <div id="sortedGrades"></div>
     <h1>Grades Projection</h1>
     <button id="scrapeLabels">Get Grades</button>
     <div id="labelsContainer"></div>
-    <div id="finalGrade">
-      Final Grade: 0%
+    <div class="grades-container">
+      <div id="final" class="grade">
+        <div id="finalGrade">Final Grade: --%</div>
+        <div id="letterGrade">-</div>
+      </div>
+      <div id="best" class="grade">
+        <div id="bestGrade">Best Grade: --%</div>
+        <div id="bestLetterGrade">-</div>
+      </div>
     </div>
-    <div id="letterGrade"></div>
+    <h2>Pending Grades</h2>
+    <div id="sortedGrades"></div>
   </div>
 
   <script src="popup.js"></script>

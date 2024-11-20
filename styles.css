@@ -1,21 +1,22 @@
 .popup {
     width: 384px;
-    height: 400px;
+    height: 480px;
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-  }
+}
 
-  h1 {
+h1 {
     text-align: center;
     font-size: 2.5rem;
     font-weight: bold;
-    margin-bottom: 20px;
-  }
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
 
-  #scrapeLabels {
+#scrapeLabels {
     width: 100%;
     padding: 12px;
     background-color: #050505;
@@ -23,15 +24,15 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 1.5rem;
-  }
+}
 
-  #scrapeLabels:hover {
+#scrapeLabels:hover {
     background-color: #252525;
-  }
+}
 
-  #results {
+#results {
     max-height: 280px;
     overflow-y: auto;
     background-color: #f9fafb;
@@ -39,19 +40,37 @@
     border-radius: 8px;
     border: 1px solid #e5e7eb;
     font-size: 1.2rem;
-  }
+}
 
-  #finalGrade {
+.grades-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.grade {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#finalGrade, #bestGrade {
     font-size: 1.25rem;
     font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-  }
+}
 
-  #letterGrade {
+#letterGrade, #bestLetterGrade {
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
-    margin-top: 20px;
     color: #000;
-  }
+}
+
+#sortedGrades {
+    max-height: 110px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}

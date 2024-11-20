@@ -1,9 +1,15 @@
+let achieved;
+let weight;
+let pendingWeight;
+
 document.getElementById('scrapeLabels').addEventListener('click', function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { action: "getIndividual" }, function (response) {
             if (response && response.labels) {
+                achieved = 0; weight = 0; pendingWeight = 0;
                 const sortedLabels = response.labels;
                 displaySortedGrades(sortedLabels);
+                console.log("achieved : " + achieved + " , tot. weight: " + weight)
             }
         });
 
@@ -19,20 +25,11 @@ document.getElementById('scrapeLabels').addEventListener('click', function () {
                         names.push(labels[i]);
                     } else if (i % 3 === 1) {
                         values.push(labels[i]);
-                        const match = labels[i].match(/^(\d+\.?\d*)\s*\/\s*(\d+\.?\d*)$/);
-                        if (match) {
-                            const numerator = parseFloat(match[1]);
-                            const denominator = parseFloat(match[2]);
-                            if (!isNaN(numerator) && !isNaN(denominator)) {
-                                numeratorSum += numerator;
-                                denominatorSum += denominator;
-                            }
-                        }
                     }
                 }
                 let finalGrade = 0;
-                if (denominatorSum !== 0) {
-                    finalGrade = numeratorSum / denominatorSum;
+                if (weight !== 0) {
+                    finalGrade = achieved / weight;
                 }
                 displayLabels(names, values, finalGrade);
             }
@@ -58,18 +55,26 @@ function displaySortedGrades(sortedLabels) {
         }
 
         const listItem = document.createElement('li');
-        
+
+        let name;
+        let values;
+        let grade;
         if (typeof label === 'object' && label !== null) {
-            const name = label.name;
-            const values = label.values[1];
-            const grade = label.grade;
+            name = label.name;
+            values = label.values[1];
+            grade = label.grade;
+
 
             listItem.innerHTML = validateObject(name, values, grade);
         } else {
             listItem.textContent = label;
         }
+        if (validateObject(name, values, grade) === -1) {
+            console.log("Completed " + name + " with value of " + values)
+        } else {
+            list.appendChild(listItem);
+        }
 
-        list.appendChild(listItem);
     });
 
     sortedGradesDiv.appendChild(list);
@@ -77,18 +82,27 @@ function displaySortedGrades(sortedLabels) {
 
 function validateObject(name, values, grade) {
     //TODO: empty grade assuming cannot get a 0 mark. Add check for 0 mark.
-    const regex = /^0\s*\/\s*\d+(\.\d+)?$/; 
-    if(regex.test(values)) { 
+    const regex = /^0\s*\/\s*\d+(\.\d+)?$/;
+    if (regex.test(values)) {
+        const weight = values.replace(/^0\s*\/\s*/, "");
+        pendingWeight += parseFloat(weight);
         return `
                 <strong>Name:</strong> ${name} <br>
-                <strong>Pending Grade with weight of ${values}%</strong>
+                <strong>Pending Grade with weight of ${weight}%</strong>
             `;
+    } else {
+        const match = values.match(/^(\d+\.?\d*)\s*\/\s*(\d+\.?\d*)$/);
+        if (match) {
+            const numerator = parseFloat(match[1]);
+            const denominator = parseFloat(match[2]);
+            if (!isNaN(numerator) && !isNaN(denominator)) {
+                achieved += numerator;
+                weight += denominator;
+            }
+        }
+
+        return -1;
     }
-    return `
-                <strong>Name:</strong> ${name} <br>
-                <strong>Values:</strong> ${values} <br>
-                <strong>Grade:</strong> ${grade}
-            `;
 }
 
 
@@ -102,10 +116,10 @@ function displayLabels(names, values, finalGrade) {
 
     const headerRow = document.createElement('tr');
     const nameHeader = document.createElement('th');
-    nameHeader.textContent = 'Name';
+    nameHeader.textContent = 'Category';
     nameHeader.style.textAlign = 'left';
     const valueHeader = document.createElement('th');
-    valueHeader.textContent = 'Value';
+    valueHeader.textContent = 'Partial Grade';
     valueHeader.style.textAlign = 'left';
     headerRow.appendChild(nameHeader);
     headerRow.appendChild(valueHeader);
@@ -125,11 +139,12 @@ function displayLabels(names, values, finalGrade) {
     }
 
     labelsContainer.appendChild(table);
-
-    updateFinalGrade(finalGrade);
+    const bestGrade = (achieved+pendingWeight)/(weight+pendingWeight);
+    console.log("best grade: " + bestGrade + " achieved: " + achieved + " weight: " + weight + " pending : " + pendingWeight)
+    updateFinalGrade(finalGrade, bestGrade);
 }
 
-function updateFinalGrade(finalGrade) {
+function updateFinalGrade(finalGrade, bestGrade) {
     const finalGradeElement = document.getElementById('finalGrade');
     finalGradeElement.textContent = `Final Grade: ${(finalGrade * 100).toFixed(1)}%`;
 
@@ -138,6 +153,15 @@ function updateFinalGrade(finalGrade) {
     const letterGradeElement = document.getElementById('letterGrade');
     letterGradeElement.textContent = letterGrade;
     letterGradeElement.style.color = letterColor;
+
+    const bestGradeElement = document.getElementById('bestGrade');
+    bestGradeElement.textContent = `Best Grade: ${(bestGrade * 100).toFixed(1)}%`;
+
+    const bestLetterGrade = calculateLetterGrade(bestGrade);
+    const bestLetterColor = getLetterColor(bestLetterGrade);
+    const bestLetterGradeElement = document.getElementById('bestLetterGrade');
+    bestLetterGradeElement.textContent = bestLetterGrade;
+    bestLetterGradeElement.style.color = bestLetterColor;
 }
 
 function calculateLetterGrade(grade) {
