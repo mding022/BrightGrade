@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Grades Projection",
+    "name": "PathTo90",
     "version": "1.0",
-    "description": "Scrapes data from Brightspace and compiles it.",
+    "description": "Scrapes grades from Brightspace and compiles it into more user-friendly interactive data",
     "permissions": [
       "activeTab",
       "scripting"

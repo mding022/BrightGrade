@@ -16,6 +16,10 @@ h1 {
     margin-top: -5px;
 }
 
+h2 {
+    margin-bottom: -0.5px;
+}
+
 #scrapeLabels {
     width: 100%;
     padding: 12px;
@@ -71,6 +75,62 @@ h1 {
     overflow-y: auto;
     border: 1px solid #ccc;
     padding: 10px;
+    margin-top: 3px;
     background-color: #f9f9f9;
     border-radius: 8px;
 }
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style the slider itself */
+#pendingGradeSlider {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 300px; /* Adjust width */
+    height: 8px; /* Set track height */
+    background: #ddd; /* Light gray track color */
+    border-radius: 5px; /* Rounded corners for track */
+    outline: none; /* Remove default focus outline */
+    transition: background 0.3s ease-in-out; /* Smooth transition on hover */
+}
+
+/* Style the thumb (handle) */
+#pendingGradeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* Circular thumb */
+    background: #000000; /* Default thumb color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background 0.2s ease; /* Smooth color transition */
+}
+
+#pendingGradeSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #515151; /* Default thumb color */
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+/* Style for when the slider thumb is hovered */
+#pendingGradeSlider:hover {
+    background: #ccc; /* Slightly darker track when hovered */
+}
+
+/* Style the value text next to the slider */
+#sliderValue {
+    font-size: 16px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #333;
+}
+

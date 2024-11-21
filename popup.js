@@ -1,6 +1,8 @@
 let achieved;
 let weight;
 let pendingWeight;
+let sliderValue = 0.9; // Initialize slider value at 100%
+let final;
 
 document.getElementById('scrapeLabels').addEventListener('click', function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -27,14 +29,21 @@ document.getElementById('scrapeLabels').addEventListener('click', function () {
                         values.push(labels[i]);
                     }
                 }
-                let finalGrade = 0;
+                final = 0;
                 if (weight !== 0) {
-                    finalGrade = achieved / weight;
+                    final = achieved / weight;
                 }
-                displayLabels(names, values, finalGrade);
+                displayLabels(names, values, final);
             }
         });
     });
+});
+
+// Add event listener for the slider
+document.getElementById('pendingGradeSlider').addEventListener('input', function(event) {
+    sliderValue = event.target.value / 100;  // Convert to a decimal value
+    document.getElementById('sliderValue').textContent = `${event.target.value}%`;  // Update the displayed value
+    updateBestGrade();
 });
 
 function displaySortedGrades(sortedLabels) {
@@ -63,7 +72,6 @@ function displaySortedGrades(sortedLabels) {
             name = label.name;
             values = label.values[1];
             grade = label.grade;
-
 
             listItem.innerHTML = validateObject(name, values, grade);
         } else {
@@ -114,7 +122,6 @@ function validateObject(name, values, grade) {
     }
 }
 
-
 function displayLabels(names, values, finalGrade) {
     const labelsContainer = document.getElementById('labelsContainer');
     labelsContainer.innerHTML = '';
@@ -148,14 +155,24 @@ function displayLabels(names, values, finalGrade) {
     }
 
     labelsContainer.appendChild(table);
-    const bestGrade = (achieved + pendingWeight) / (weight + pendingWeight);
+
+    const finalGradeElement = document.getElementById('finalGrade');
+    finalGradeElement.textContent = `Current: ${(finalGrade * 100).toFixed(1)}%`;
+
+    const bestGrade = (achieved + sliderValue * pendingWeight) / (weight + pendingWeight);  // Updated to include slider value
     console.log("best grade: " + bestGrade + " achieved: " + achieved + " weight: " + weight + " pending : " + pendingWeight)
     updateFinalGrade(finalGrade, bestGrade);
 }
 
+function updateBestGrade() {
+    const bestGrade = (achieved + sliderValue * pendingWeight) / (weight + pendingWeight); // Calculate with the slider value
+    console.log("Updated best grade: " + bestGrade);
+    updateFinalGrade(final, bestGrade);
+}
+
 function updateFinalGrade(finalGrade, bestGrade) {
     const finalGradeElement = document.getElementById('finalGrade');
-    finalGradeElement.textContent = `Current Grade: ${(finalGrade * 100).toFixed(1)}%`;
+    finalGradeElement.textContent = `Current: ${(finalGrade * 100).toFixed(1)}%`;
 
     const letterGrade = calculateLetterGrade(finalGrade);
     const letterColor = getLetterColor(letterGrade);
@@ -164,7 +181,7 @@ function updateFinalGrade(finalGrade, bestGrade) {
     letterGradeElement.style.color = letterColor;
 
     const bestGradeElement = document.getElementById('bestGrade');
-    bestGradeElement.textContent = `Best Grade: ${(bestGrade * 100).toFixed(1)}%`;
+    bestGradeElement.textContent = `Projected: ${(bestGrade * 100).toFixed(1)}%`;
 
     const bestLetterGrade = calculateLetterGrade(bestGrade);
     const bestLetterColor = getLetterColor(bestLetterGrade);
@@ -188,9 +205,9 @@ function calculateLetterGrade(grade) {
 }
 
 function getLetterColor(letterGrade) {
-    if (letterGrade === 'A+' || letterGrade === 'A') return 'green';
-    if (letterGrade === 'A-' || letterGrade === 'B+') return 'lightgreen';
-    if (letterGrade === 'B' || letterGrade === 'C+') return 'yellowgreen';
+    if(letterGrade === 'A+') return '#0066CC';
+    if (letterGrade === 'A' || letterGrade === 'A-') return 'green';
+    if (letterGrade === 'B+' || letterGrade === 'B' || letterGrade === 'C+') return 'lightgreen';
     if (letterGrade === 'C' || letterGrade === 'D+') return 'orange';
     if (letterGrade === 'D' || letterGrade === 'E') return 'red';
     return 'darkred';

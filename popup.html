@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GradesProjection</title>
+  <title>Path to 90</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -15,15 +15,17 @@
     <div id="labelsContainer"></div>
     <div class="grades-container">
       <div id="final" class="grade">
-        <div id="finalGrade">Final Grade: --%</div>
+        <div id="finalGrade">Current: --%</div>
         <div id="letterGrade">-</div>
       </div>
       <div id="best" class="grade">
-        <div id="bestGrade">Best Grade: --%</div>
+        <div id="bestGrade">Projected: --%</div>
         <div id="bestLetterGrade">-</div>
       </div>
     </div>
-    <h2>Pending Grades</h2>
+    <h2>Pending Grades Average</h2>
+    <input type="range" id="pendingGradeSlider" min="0" max="100" value="90" step="1">
+    <span id="sliderValue">90%</span>
     <div id="sortedGrades"></div>
   </div>
 
