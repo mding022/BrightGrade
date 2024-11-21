@@ -1,7 +1,7 @@
 let achieved;
 let weight;
 let pendingWeight;
-let sliderValue = 0.9; // Initialize slider value at 100%
+let sliderValue = 0.9; // starts the slider at 90%
 let final;
 
 document.getElementById('scrapeLabels').addEventListener('click', function () {
