@@ -6,11 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grades Projection</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div class="popup">
-    <h1>Grades Projection</h1>
+  <div class="popup animate1">
+    <h1>BrightGrade&nbsp;&nbsp;🧠</h1>
     <button id="scrapeLabels">Get Grades</button>
     <div id="labelsContainer"></div>
     <div class="grades-container">
@@ -23,10 +24,11 @@
         <div id="bestLetterGrade">-</div>
       </div>
     </div>
-    <h2>Pending Grades Average</h2>
+    <h2>Set Pending Grades Average</h2>
     <input type="range" id="pendingGradeSlider" min="0" max="100" value="90" step="1">
     <span id="sliderValue">90%</span>
     <div id="sortedGrades"></div>
+    <footer>😊&nbsp;Made by Miller Ding</footer>
   </div>
 
   <script src="popup.js"></script>

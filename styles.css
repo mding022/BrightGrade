@@ -1,136 +1,174 @@
 .popup {
-    width: 384px;
-    height: 480px;
-    background-color: white;
-    padding: 10px;
+    width: 380px;
+    height: 560px;
+    background: hsl(240 10% 3.9%);
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    overflow: auto;
+    font-family: "Outfit", sans-serif;
+    color: hsl(0 0% 98%);
+    border: 1px solid hsl(240 3.7% 15.9%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: -5px;
+    text-align: left;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 16px;
+    color: hsl(0 0% 98%);
 }
 
 h2 {
-    margin-bottom: -0.5px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: hsl(240 5% 64.9%);
 }
 
 #scrapeLabels {
     width: 100%;
     padding: 12px;
-    background-color: #050505;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    background: hsl(240 5.9% 10%);
+    color: hsl(0 0% 98%);
+    border: 1px solid hsl(240 3.7% 15.9%);
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-family: monospace;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    margin-bottom: 10px;
-    font-size: 1.5rem;
+    transition: all 0.2s ease-in-out;
 }
 
 #scrapeLabels:hover {
-    background-color: #252525;
-}
-
-#results {
-    max-height: 280px;
-    overflow-y: auto;
-    background-color: #f9fafb;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    font-size: 1.2rem;
+    background: hsl(240 4.8% 15.9%);
 }
 
 .grades-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 20px;
+    gap: 16px;
 }
 
 .grade {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background: hsl(240 5.9% 10%);
+    border-radius: 6px;
+    width: 48%;
+    border: 1px solid hsl(240 3.7% 15.9%);
 }
 
 #finalGrade, #bestGrade {
-    font-size: 1.25rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 600;
+    color: hsl(0 0% 98%);
 }
 
 #letterGrade, #bestLetterGrade {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
-    text-align: center;
-    color: #000;
-}
-
-#sortedGrades {
-    max-height: 110px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-top: 3px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    margin-top: 8px;
+    color: hsl(142.1 70.6% 45.3%);
 }
 
 .slider-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px;
-    font-family: 'Arial', sans-serif;
+    margin-top: 16px;
 }
 
-/* Style the slider itself */
 #pendingGradeSlider {
-    -webkit-appearance: none; /* Remove default styling */
-    appearance: none;
-    width: 300px; /* Adjust width */
-    height: 8px; /* Set track height */
-    background: #ddd; /* Light gray track color */
-    border-radius: 5px; /* Rounded corners for track */
-    outline: none; /* Remove default focus outline */
-    transition: background 0.3s ease-in-out; /* Smooth transition on hover */
+    width: 100%;
+    height: 4px;
+    background: hsl(240 5.9% 10%);
+    border-radius: 2px;
+    outline: none;
+    transition: background 0.3s ease-in-out;
 }
 
-/* Style the thumb (handle) */
 #pendingGradeSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%; /* Circular thumb */
-    background: #000000; /* Default thumb color */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background 0.2s ease; /* Smooth color transition */
-}
-
-#pendingGradeSlider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background: #515151; /* Default thumb color */
+    background: hsl(142.1 70.6% 45.3%);
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: transform 0.2s ease-in-out;
 }
 
-/* Style for when the slider thumb is hovered */
-#pendingGradeSlider:hover {
-    background: #ccc; /* Slightly darker track when hovered */
+#pendingGradeSlider:hover::-webkit-slider-thumb {
+    transform: scale(1.1);
 }
 
-/* Style the value text next to the slider */
 #sliderValue {
-    font-size: 16px;
-    margin-left: 10px;
-    font-weight: bold;
-    color: #333;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(0 0% 98%);
+    margin-left: 12px;
 }
 
+#sortedGrades {
+    max-height: 100px;
+    overflow-y: auto;
+    background: hsl(240 5.9% 10%);
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    margin-top: 16px;
+    color: hsl(240 5% 64.9%);
+    border: 1px solid hsl(240 3.7% 15.9%);
+}
+
+#sortedGrades::-webkit-scrollbar {
+    width: 8px;
+}
+
+#sortedGrades::-webkit-scrollbar-track {
+    background: hsl(240 5.9% 10%);
+}
+
+#sortedGrades::-webkit-scrollbar-thumb {
+    background: hsl(240 3.7% 15.9%);
+    border-radius: 4px;
+}
+
+#sortedGrades::-webkit-scrollbar-thumb:hover {
+    background: hsl(240 5% 26.9%);
+}
+
+footer {
+    padding: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: hsl(240 5% 64.9%);
+    text-align: center;
+    margin-top: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+        filter: blur(10px) sepia(1) hue-rotate(180deg) saturate(2);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0) sepia(0) hue-rotate(0deg) saturate(1);
+    }
+}
+
+.animate1 {
+    animation: fadeIn 0.3s ease-out;
+}
