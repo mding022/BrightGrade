@@ -1,5 +1,5 @@
 
-# Grades Projection
+# BrightGrade
 
 Chrome extension to give an accurate calculation of your current grade in a Brightspace class. It works by taking into account weighted points and allows the user to put an estimate as to what they think they will achieve in their pending grades.
 
