@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Grades Projection",
+    "name": "BrightGrade",
     "version": "1.0",
     "description": "Scrapes grades from Brightspace and compiles it into more user-friendly interactive data",
     "permissions": [
